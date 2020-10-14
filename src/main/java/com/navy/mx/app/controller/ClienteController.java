@@ -12,7 +12,7 @@ import com.navy.mx.app.models.dao.IClienteDao;
 
 @Controller
 public class ClienteController{
-	
+	///pruebas para el pelomnn
 	@Autowired
 	private IClienteDao clienteDao;
 	

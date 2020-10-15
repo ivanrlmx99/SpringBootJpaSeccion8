@@ -16,13 +16,11 @@ public class ClienteController{
 	@Autowired
 	private IClienteDao clienteDao;
 	
-	@RequestMapping(value="listar",method = RequestMethod.GET)
+	@RequestMapping(value="listarClientes",method = RequestMethod.GET)
 	public String listar(Model model) {
-		model.addAttribute("titulo","Lista de clientes");
-		model.addAttribute("clientes", clienteDao.findAll());
-		 //String now = (new Date()).toString();
-		
-		return "listar";
+	        model.addAttribute("titulo","Lista de clientes");
+			model.addAttribute("clientes",clienteDao.findAll());
+			 return "listar";
 	}
 
 }

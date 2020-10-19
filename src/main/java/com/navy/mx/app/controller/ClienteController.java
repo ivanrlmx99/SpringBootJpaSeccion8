@@ -1,6 +1,6 @@
 package com.navy.mx.app.controller;
 
-import java.util.Date;
+//import java.util.Date;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.navy.mx.app.models.dao.IClienteDao;
+import com.navy.mx.app.models.dao.service.IClienteServiceDao;
 import com.navy.mx.app.models.entity.Cliente;
 
 @Controller
@@ -23,12 +24,12 @@ import com.navy.mx.app.models.entity.Cliente;
 public class ClienteController {
 
 	@Autowired
-	private IClienteDao clienteDao;
+	private IClienteServiceDao iclienteServiceDao;
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Lista de clientes");
-		model.addAttribute("clientes", clienteDao.findAll());
+		model.addAttribute("clientes", iclienteServiceDao.findAll());
 		return "listar";
 	}
 
@@ -59,7 +60,7 @@ public class ClienteController {
 		Cliente cliente = null;
 
 		if (id > 0) {
-			cliente = clienteDao.findOne(id);
+			cliente = iclienteServiceDao.findOne(id);
 		} else {
 			return "redirect:/listar";
 		}
@@ -76,7 +77,7 @@ public class ClienteController {
 
 			return "formulario";
 		}
-		clienteDao.save(cliente);
+		iclienteServiceDao.save(cliente);
 		status.setComplete();
 		return "redirect:listar";
 
@@ -93,7 +94,7 @@ public class ClienteController {
 	public String delete(@PathVariable(value = "id") Long id) {
 
 		if (id > 0) {
-			clienteDao.delete(id);
+			iclienteServiceDao.delete(id);
 		}
 
 		return "redirect:/listar";

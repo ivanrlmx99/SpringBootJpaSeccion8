@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8"/>
+<title>Insert title here</title>
+</head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<body>
+
+<div class="container">
+
+<div th:object="${cliente}" th:remove="tag">
+<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+</ul>
+
+</div>
+
+
+	<form  th:action="@{/formulario}" th:object="${cliente}"  method="post">
+	  <div class="form-row">
+	    <div class="col-md-3 mb-3">
+	      <label >Name</label>
+	     <input type="text" th:field="*{nombre}" class="form-control"th:errorclass="'form-control alert-danger'" /> 
+	     <small class="form-text text-danger"
+						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+	    </div>
+	    <div class="col-md-3 mb-3">
+	      <label >Last name</label>
+	      <input type="text" th:field="*{apellido}" class="form-control"th:errorclass="'form-control alert-danger'"/>
+	       <small class="form-text text-danger"
+						th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+	    </div>
+	  </div>
+	  <div class="form-row">
+	    <div class="col-md-3 mb-3">
+	      <label for="validationDefault03">Email</label>
+	      <input type="text" th:field="*{email}" class="form-control" th:errorclass="'form-control alert-danger'">
+	       <small class="form-text text-danger"
+						th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+	    </div>
+	   
+	    <div class="col-md-3 mb-3">
+	      <label for="validationDefault05">Date</label>
+	      <input type="text" th:field="*{createAt}" class="form-control" th:errorclass="'form-control alert-danger'">
+	       <small class="form-text text-danger"
+						th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+	    </div>
+	  </div>
+	 
+	  <button class="btn btn-primary" type="submit">Registrar</button>
+		<!---- <input type="hidden" th:field="*{id}"/> es si no uso sesion atributes--->
+	</form>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</html>

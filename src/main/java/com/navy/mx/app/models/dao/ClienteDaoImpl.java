@@ -20,8 +20,41 @@ public class ClienteDaoImpl implements IClienteDao {
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
 	@Override
-	public List<Cliente> findAll() {
+	public List<Cliente> findAll(){
 		// TODO Auto-generated method stub
 		return em.createQuery("from Cliente").getResultList();
 	}
+
+	@Transactional
+	@Override
+	public void save(Cliente cliente) {
+		if(cliente.getId()!=null&&cliente.getId()>0) {
+			em.merge(cliente);
+		}else {
+			em.persist(cliente);
+		}
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findOne(Long id) {
+		return em.find(Cliente.class, id);
+	}
+	
+	/*es una forma de hacerlo
+	@Override
+	public void delete(Long id) {
+		Cliente cliente=findOne(id);
+		em.remove(cliente);
+		
+	}*/
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		em.remove(findOne(id));
+		
+	}
+
+	
 }
